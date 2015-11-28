@@ -3,9 +3,9 @@ String.prototype.repeat = function (num) {
 };
 
 window.DynamoCalculator = {
-  tableSize: 50,
-  readCapacity: 3000,
-  writeCapacity: 10000,
+  tableSize: 1,
+  readCapacity: 1000,
+  writeCapacity: 1000,
 
   getPartitionCountByTableSize: function() {
     return Math.ceil(this.tableSize / 10);
@@ -29,6 +29,17 @@ window.DynamoCalculator = {
     return Math.round(this.writeCapacity / this.getPartitionCount());
   },
 
+  getCost: function() {
+    var costPerHour = 0.0065;
+    var hoursPerMonth = 720;
+
+    var storageCost = this.tableSize * 0.25;
+    var readCost = this.readCapacity / 50 * costPerHour * hoursPerMonth;
+    var writeCost = this.writeCapacity / 10 * costPerHour * hoursPerMonth;
+
+    return (storageCost + readCost + writeCost).toFixed(2);
+  },
+
   setTableSize: function(tableSize) {
     this.tableSize = tableSize;
   },
@@ -44,16 +55,19 @@ window.DynamoCalculator = {
   updateTableSizeComponent: function() {
     $(".table-size-value").text(this.tableSize + " GB");
     this.updatePartitionCountComponents();
+    this.updateCost();
   },
 
   updateReadCapacityComponent: function() {
     $(".read-capacity-value").text(this.readCapacity + " IOPS");
     this.updatePartitionCountComponents();
+    this.updateCost();
   },
 
   updateWriteCapacityComponent: function() {
     $(".write-capacity-value").text(this.writeCapacity + " IOPS");
     this.updatePartitionCountComponents();
+    this.updateCost();
   },
 
   updatePartitionCountComponents: function() {
@@ -64,31 +78,15 @@ window.DynamoCalculator = {
     $(".partition-count").text(partitionCount + " partitions");
     $(".partition-read-capacity").text(partitionReadCapacity + " IOPS");
     $(".partition-write-capacity").text(partitionWriteCapacity + " IOPS");
+  },
+
+  updateCost: function() {
+    var cost = this.getCost();
+    $(".cost").text("$" + cost);
   }
 };
 
 (function($) {
-  $.fn.addSliderSegments = function() {
-    return this.each(function() {
-      var $this = $(this),
-          option = $this.slider('option'),
-          amount = (option.max - option.min) / option.step,
-          orientation = option.orientation;
-
-      if (orientation === 'vertical') {
-        var output = '';
-        for (var i = 1; i <= amount - 1; i++) {
-          output += '<div class="ui-slider-segment" style="top:' + 100 / amount * i + '%;"></div>';
-        }
-        $this.prepend(output);
-      } else {
-        var segmentGap = 100 / (amount) + '%';
-        var segment = '<div class="ui-slider-segment" style="margin-left: ' + segmentGap + ';"></div>';
-        $this.prepend(segment.repeat(amount - 1));
-      }
-    });
-  };
-
   $(function() {
     var setupTableSize = function() {
       var $slider = $("#table-size");
@@ -103,7 +101,7 @@ window.DynamoCalculator = {
             window.DynamoCalculator.setTableSize(ui.value);
             window.DynamoCalculator.updateTableSizeComponent();
           }
-        }).addSliderSegments($slider.slider("option").max);
+        });
       }
     };
 
@@ -120,7 +118,7 @@ window.DynamoCalculator = {
             window.DynamoCalculator.setReadCapacity(ui.value * 1000);
             window.DynamoCalculator.updateReadCapacityComponent();
           }
-        }).addSliderSegments($slider.slider("option").max);
+        });
       }
     };
 
@@ -137,7 +135,7 @@ window.DynamoCalculator = {
             window.DynamoCalculator.setWriteCapacity(ui.value * 1000);
             window.DynamoCalculator.updateWriteCapacityComponent();
           }
-        }).addSliderSegments($slider.slider("option").max);
+        });
       }
     };
 
