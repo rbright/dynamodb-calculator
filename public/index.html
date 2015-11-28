@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DynamoDB Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="vendor/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/css/flat-ui.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>DynamoDB Calculator
+      <h6>Because just increasing IOPS doesn't always work.</h6>
+      <div class="row">
+        <div class="col-md-4">
+          <form>
+            <div class="form-group">
+              <label for="table-size">How large is the table (in GB)?</label>
+              <div id="table-size" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
+            </div>
+            <div class="form-group">
+              <label for="read-capacity">What is the provisioned read capacity?</label>
+              <div id="read-capacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
+            </div>
+            <div class="form-group">
+              <label for="write-capacity">What is the provisioned write capacity?</label>
+              <div id="write-capacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-2">
+          &nbsp;
+        </div>
+        <div class="col-md-6">
+          <p>
+            A DynamoDB table with a total size of <mark
+              id="table-size-value">&nbsp;</mark>, provisioned read capacity of
+            <mark id="read-capacity-value">&nbsp;</mark>, and provisioned write
+            capacity of <mark id="write-capacity-value">&nbsp;</mark> will
+            split data across <mark id="partition-count">&nbsp;</mark>.
+          </p>
+
+          <p>
+            That means that each partition will have read capacity of <mark
+              id="partition-read-capacity">&nbsp;</mark> and write capacity of
+            <mark id="partition-write-capacity">&nbsp;</mark>.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="vendor/js/vendor/jquery.min.js"></script>
+    <script src="vendor/js/vendor/video.js"></script>
+    <script src="vendor/js/flat-ui.min.js"></script>
+    <script src="js/application.js"></script>
+  </body>
+</html>
