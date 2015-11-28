@@ -42,17 +42,17 @@ window.DynamoCalculator = {
   },
 
   updateTableSizeComponent: function() {
-    $("#table-size-value").text(this.tableSize + " GB");
+    $(".table-size-value").text(this.tableSize + " GB");
     this.updatePartitionCountComponents();
   },
 
   updateReadCapacityComponent: function() {
-    $("#read-capacity-value").text(this.readCapacity + " IOPS");
+    $(".read-capacity-value").text(this.readCapacity + " IOPS");
     this.updatePartitionCountComponents();
   },
 
   updateWriteCapacityComponent: function() {
-    $("#write-capacity-value").text(this.writeCapacity + " IOPS");
+    $(".write-capacity-value").text(this.writeCapacity + " IOPS");
     this.updatePartitionCountComponents();
   },
 
@@ -61,9 +61,9 @@ window.DynamoCalculator = {
     var partitionReadCapacity = this.getPartitionReadCapacity();
     var partitionWriteCapacity = this.getPartitionWriteCapacity();
 
-    $("#partition-count").text(partitionCount + " partitions");
-    $("#partition-read-capacity").text(partitionReadCapacity + " IOPS");
-    $("#partition-write-capacity").text(partitionWriteCapacity + " IOPS");
+    $(".partition-count").text(partitionCount + " partitions");
+    $(".partition-read-capacity").text(partitionReadCapacity + " IOPS");
+    $(".partition-write-capacity").text(partitionWriteCapacity + " IOPS");
   }
 };
 

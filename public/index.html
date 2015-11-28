@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="vendor/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/css/flat-ui.min.css" rel="stylesheet">
+    <style>
+      label {
+        font-weight: 700;
+      }
+    </style>
   </head>
 
   <body>
@@ -17,14 +22,23 @@
           <form>
             <div class="form-group">
               <label for="table-size">How large is the table (in GB)?</label>
+              <div>
+                <small class="table-size-value">&nbsp;</small>
+              </div>
               <div id="table-size" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
             </div>
             <div class="form-group">
               <label for="read-capacity">What is the provisioned read capacity?</label>
+              <div>
+                <small class="read-capacity-value">&nbsp;</small>
+              </div>
               <div id="read-capacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
             </div>
             <div class="form-group">
               <label for="write-capacity">What is the provisioned write capacity?</label>
+              <div>
+                <small class="write-capacity-value">&nbsp;</small>
+              </div>
               <div id="write-capacity" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" aria-disabled="false"></div>
             </div>
           </form>
@@ -35,16 +49,16 @@
         <div class="col-md-6">
           <p>
             A DynamoDB table with a total size of <mark
-              id="table-size-value">&nbsp;</mark>, provisioned read capacity of
-            <mark id="read-capacity-value">&nbsp;</mark>, and provisioned write
-            capacity of <mark id="write-capacity-value">&nbsp;</mark> will
-            split data across <mark id="partition-count">&nbsp;</mark>.
+              class="table-size-value">&nbsp;</mark>, provisioned read capacity
+            of <mark class="read-capacity-value">&nbsp;</mark>, and provisioned
+            write capacity of <mark class="write-capacity-value">&nbsp;</mark>
+            will split data across <mark class="partition-count">&nbsp;</mark>.
           </p>
 
           <p>
             That means that each partition will have read capacity of <mark
-              id="partition-read-capacity">&nbsp;</mark> and write capacity of
-            <mark id="partition-write-capacity">&nbsp;</mark>.
+              class="partition-read-capacity">&nbsp;</mark> and write capacity
+            of <mark class="partition-write-capacity">&nbsp;</mark>.
           </p>
         </div>
       </div>
